@@ -9,11 +9,11 @@ fn main() {
 }
 
 fn part1(input: &str) -> usize {
-    input.lines().map(parse_line).filter(overlaps1).count()
+    input.lines().map(parse_line).filter(overlaps_fully).count()
 }
 
 fn part2(input: &str) -> usize {
-    input.lines().map(parse_line).filter(overlaps2).count()
+    input.lines().map(parse_line).filter(overlaps_any).count()
 }
 
 fn parse_line(line: &str) -> Vec<Vec<usize>> {
@@ -22,18 +22,12 @@ fn parse_line(line: &str) -> Vec<Vec<usize>> {
         .collect()
 }
 
-fn overlaps1(x: &Vec<Vec<usize>>) -> bool {
-    if x[0][0] >= x[1][0] && x[0][1] <= x[1][1] || x[1][0] >= x[0][0] && x[1][1] <= x[0][1] {
-        return true;
-    }
-    return false;
+fn overlaps_fully(x: &Vec<Vec<usize>>) -> bool {
+    x[0][0] >= x[1][0] && x[0][1] <= x[1][1] || x[1][0] >= x[0][0] && x[1][1] <= x[0][1]
 }
 
-fn overlaps2(x: &Vec<Vec<usize>>) -> bool {
-    if x[0][0] <= x[1][0] && x[0][1] >= x[1][0] || x[1][0] <= x[0][0] && x[1][1] >= x[0][0] {
-        return true;
-    }
-    return false;
+fn overlaps_any(x: &Vec<Vec<usize>>) -> bool {
+    x[0][0] <= x[1][0] && x[0][1] >= x[1][0] || x[1][0] <= x[0][0] && x[1][1] >= x[0][0]
 }
 
 #[cfg(test)]
